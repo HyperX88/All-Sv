@@ -2,29 +2,16 @@ local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local rootPart = character:WaitForChild("HumanoidRootPart")
 
--- Asegúrate de que este script se ejecuta solo en un exploit o entorno controlado
--- Crear BodyVelocity para volar y moverse rápido
+-- Super velocidad (solo correr más rápido, sin volar)
 local bodyVelocity = Instance.new("BodyVelocity")
-bodyVelocity.MaxForce = Vector3.new(100000, 100000, 100000) -- Máxima fuerza
-bodyVelocity.Velocity = Vector3.new(150, 50, 0)  -- Supervelocidad y vuelo
+bodyVelocity.MaxForce = Vector3.new(100000, 0, 100000) -- Solo horizontal (X,Z), no en Y
+bodyVelocity.Velocity = Vector3.new(150, 0, 0)         -- Velocidad hacia adelante
 bodyVelocity.Parent = rootPart
 
--- Crear BodyGyro para mantener la orientación correcta
-local bodyGyro = Instance.new("BodyGyro")
-bodyGyro.MaxTorque = Vector3.new(400000, 400000, 400000)  -- Fijar la orientación
-bodyGyro.CFrame = rootPart.CFrame
-bodyGyro.Parent = rootPart
-
--- Simular un salto alto, usando BodyVelocity para controlar el movimiento
+-- Super salto infinito (impulso solo hacia arriba cuando saltas)
 local jumpForce = Instance.new("BodyVelocity")
-jumpForce.MaxForce = Vector3.new(100000, 100000, 100000)
-jumpForce.Velocity = Vector3.new(0, 100, 0)  -- Fuerza de salto hacia arriba
+jumpForce.MaxForce = Vector3.new(0, 100000, 0) -- Solo vertical (Y)
+jumpForce.Velocity = Vector3.new(0, 100, 0)   -- Impulso hacia arriba
 jumpForce.Parent = rootPart
 
--- Mantener los efectos por 5 segundos
-wait(5)
-
--- Detener el vuelo y la supervelocidad
-bodyVelocity:Destroy()
-bodyGyro:Destroy()
-jumpForce:Destroy()
+print("Speed and SuperJump are now infinite! (No Fly)")
